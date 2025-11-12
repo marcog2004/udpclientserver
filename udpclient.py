@@ -1,3 +1,7 @@
+# Marco Greco 40285114
+# COEN 366 Lab 2 UDP Client
+# Adapted from Lab Slides
+
 import socket  # for sockets
 import sys     # for exit
 

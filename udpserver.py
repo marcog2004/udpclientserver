@@ -1,3 +1,7 @@
+# Marco Greco 40285114
+# COEN 366 Lab 2 UDP Server
+# Adapted from Lab Slides
+
 import socket
 import sys
 
