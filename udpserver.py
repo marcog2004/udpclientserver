@@ -4,6 +4,7 @@
 
 import socket
 import sys
+import time
 
 HOST = '0.0.0.0'   # Listen on all interfaces
 PORT = 8888        # Arbitrary non-privileged port
@@ -28,6 +29,7 @@ while True:
             break
 
         reply = b'OK...' + data
+        time.sleep(0)
         s.sendto(reply, addr)
         print(f"Received from {addr}: {data.decode().strip()}")
 
