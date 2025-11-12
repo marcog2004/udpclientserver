@@ -34,8 +34,8 @@ while True:
     except KeyboardInterrupt:
         print('\nServer shutting down...')
         break
-    except Exception as msg:
-        print(f'Error: {msg}')
+    except Exception as e:
+        print(f'Error: {e}')
         break
 
 s.close()

@@ -30,7 +30,7 @@ while(1):
         addr = d[1]
         print('Server replied: ' + reply)
 
-    except socket.error as msg:
-        print('Error')
+    except socket.error as e:
+        print(f'Error' + {e})
 
 s.close()
