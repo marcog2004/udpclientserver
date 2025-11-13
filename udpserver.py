@@ -23,6 +23,8 @@ except socket.error as e:
     print(f'Bind failed: {e}') # In case of error binding socket
     sys.exit(1)
 
+message_count = 0 # total received messages
+
 # Listen for messages from client
 print('UDP Server listening on port', PORT)  # indicate listening status of server
 while True:
@@ -30,11 +32,15 @@ while True:
         data, addr = s.recvfrom(1024) # when data is received, store data and address + port it came from
         if not data:
             break
+        
+        message_count += 1 # increment total received messages
 
-        reply = b'OK...' + data # store reply (to be sent to client)
-        time.sleep(0) # delay to simulate timeout
-        s.sendto(reply, addr) #  send response to client
-        print(f"Received from {addr}: {data.decode('utf-8').strip()}") # print received message and client IP + port
+        if message_count % 3 == 0: # simulate timeout on every third message
+            time.sleep(5) # delay to simulate timeout
+        else:
+            reply = b'OK...' + data # store reply (to be sent to client)
+            s.sendto(reply, addr) #  send response to client
+            print(f"Received from {addr}: {data.decode('utf-8').strip()}") # print received message and client IP + port
 
     except KeyboardInterrupt:
         print('\nServer shutting down...') # shut down server on keyboard interrupt

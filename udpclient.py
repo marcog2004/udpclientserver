@@ -8,7 +8,7 @@ import threading
 import os
 
 #Timer Thread function to handle server timeout
-def timeout(sock):
+def timeout(s):
     print ("Server timed out")
     s.close()
     os._exit(0)
