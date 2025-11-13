@@ -19,7 +19,7 @@ client_port = 8889
 
 # Open socket
 try:
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) 
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # AF_INIT -> IPv4 // SOCK_DGRAM -> UDP
 except socket.error:
     print('Failed to create socket') # In case of error creating socket
     sys.exit()
