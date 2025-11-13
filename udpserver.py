@@ -9,35 +9,38 @@ import time
 HOST = '0.0.0.0'   # Listen on all interfaces
 PORT = 8888        # Arbitrary non-privileged port
 
+# Create Socket
 try:
-    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # AF_INET -> Specifies IPv4 Addresses // SOCK_DGRAM -> UDP
 except socket.error as e:
-    print(f'Failed to create socket: {e}')
+    print(f'Failed to create socket: {e}') # In case of error creating socket
     sys.exit(1)
 
+# Bind socket
 try:
-    s.bind((HOST, PORT))
+    s.bind((HOST, PORT)) # Assign specific local IP and port to socket
 except socket.error as e:
-    print(f'Bind failed: {e}')
+    print(f'Bind failed: {e}') # In case of error binding socket
     sys.exit(1)
 
-print('UDP Server listening on port', PORT)
+# Listen for messages from client
+print('UDP Server listening on port', PORT)  # indicate listening status of server
 while True:
     try:
-        data, addr = s.recvfrom(1024)
+        data, addr = s.recvfrom(1024) # when data is received, store data and address + port it came from
         if not data:
             break
 
-        reply = b'OK...' + data
-        time.sleep(0)
-        s.sendto(reply, addr)
-        print(f"Received from {addr}: {data.decode().strip()}")
+        reply = b'OK...' + data # store reply (to be sent to client)
+        time.sleep(0) # delay to simulate timeout
+        s.sendto(reply, addr) #  send response to client
+        print(f"Received from {addr}: {data.decode('utf-8').strip()}") # print received message and client IP + port
 
     except KeyboardInterrupt:
-        print('\nServer shutting down...')
+        print('\nServer shutting down...') # shut down server on keyboard interrupt
         break
-    except Exception as e:
-        print(f'Error: {e}')
+    except Exception as e: 
+        print(f'Error: {e}') # error handling
         break
 
 s.close()
